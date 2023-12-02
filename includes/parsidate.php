@@ -161,7 +161,10 @@ class WPP_ParsiDate {
 		$j_days_in_month = array( 31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 365 );
 		$timestamp       = is_numeric( $date ) && (int) $date == $date ? $date : strtotime( $date );
 		$date            = getdate( $timestamp );
-
+		// دریافت اختلاف زمانی  
+		$timezone_offset_minutes = wp_timezone()->getOffset(new DateTime());
+		// افزودن اختلاف زمانی  timestamp فعلی
+		$timestamp = $timestamp + $timezone_offset_minutes;
 		list( $date['year'], $date['mon'], $date['mday'] ) = self::gregorian_to_persian( $date['year'], $date['mon'], $date['mday'] );
 
 		$date['mon']  = (int) $date['mon'];
